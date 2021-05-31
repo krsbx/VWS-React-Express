@@ -21,7 +21,7 @@ const client = (options) => {
           if (response.statusCode === 200 || response.statusCode === 201) {
             callback(null, result);
           } else {
-            const error = new Error(result.result_code);
+            const error = result.result_code;
             callback(error, result);
           }
         } catch (error) {
@@ -81,7 +81,7 @@ const client = (options) => {
     VWSRequest(request, callback);
   }
 
-  const deleteTarget = (targetId, target, callback) => {
+  const deleteTarget = (targetId, callback) => {
     const request = {
       'path': '/targets/' + targetId,
       'method': 'DELETE',

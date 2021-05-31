@@ -44,11 +44,18 @@ const utility = () => {
     return authorization;
   }
 
+  const decodeKey = (VWSKey) => {
+    const buffer = new Buffer.from(VWSKey, 'base64');
+
+    return buffer.toString('utf8');
+  }
+
   return {
     'timestamp' : timestamp,
     'hashHMAC' : hashHMAC,
     'hashMD5' : hashMD5,
     'createAuthorization' : createAuthorization,
+    'decodeKey' : decodeKey,
   }
 }
 
