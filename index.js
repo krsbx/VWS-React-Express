@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const VWS = require('./VWS/VWS');
 
 const PORT = process.env.PORT || 3001;
@@ -13,8 +12,8 @@ const util = VWS.util();
 const app = express();
 
 app.use(cors());
-app.use(bodyParser({ limit: '50mb' }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
@@ -63,6 +62,9 @@ app.post('/api/', (request, response) => {
         if(result.result_code == 'Fail') {
           response.status(500).send(result);
         }
+
+        console.log(error);
+        console.log(result);
 
         response.status(400).send(result);
     } else {
