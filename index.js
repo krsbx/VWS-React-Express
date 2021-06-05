@@ -63,9 +63,6 @@ app.post('/api/', (request, response) => {
           response.status(500).send(result);
         }
 
-        console.log(error);
-        console.log(result);
-
         response.status(400).send(result);
     } else {
       if(result.result_code == 'TargetCreated') {
