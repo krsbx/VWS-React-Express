@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors');
+const path = require('path');
 const VWS = require('./VWS/VWS');
 
 const PORT = process.env.PORT || 3001;
@@ -11,9 +11,10 @@ const util = VWS.util();
 
 const app = express();
 
-app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
@@ -33,6 +34,10 @@ const CheckKey = (VWSKey) => {
   serverAccessKey = result.serverAccessKey;
   serverSecretKey = result.serverSecretKey;
 };
+
+app.get('/', (request, response) => {
+  response.sendFile(path.join(__dirname, 'build', 'index.html'));
+})
 
 app.post('/api/', (request, response) => {
   const body = request.body;
